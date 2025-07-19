@@ -18,14 +18,14 @@ const Navbar = ({ className }: NavbarProps) => {
   return (
     <nav
       className={cn(
-        "fixed w-full bg-main px-4 md:px-12 py-4 flex items-center justify-between z-50",
+        "fixed w-full bg-main/30 backdrop-blur-lg px-4 md:px-12 py-4 flex items-center justify-between z-50",
         className
       )}
     >
       {/* Left: Hamburger */}
       <div className="z-50">
         <img src="/hamburger.svg" 
-          className="cursor-pointer text-black w-5 h-5"
+          className="cursor-pointer text-black w-6 h-6"
           onClick={() => setIsOpen(!isOpen)}
         />
       </div>
@@ -39,10 +39,10 @@ const Navbar = ({ className }: NavbarProps) => {
 
       {/* Right: Search + Subscribe */}
       <div className="flex gap-x-5 z-50">
-        <button className="bg-accent px-4 font-bold font-body rounded-full">
+        <button className="bg-accent px-4 font-bold font-body rounded-full text-primary-text">
           Subscribe
         </button>
-        <img src='/search.svg' className="w-5 h-5" alt="" />
+        <img src='/search.svg' className="w-6 h-6" alt="" />
       </div>
 
       {/* Mobile Menu Overlay */}
