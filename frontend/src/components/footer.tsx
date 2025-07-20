@@ -17,16 +17,16 @@ const Footer = () => {
       />
 
       {/* Centered Content */}
-      <div className="absolute inset-1 flex flex-col items-center justify-center max-lg:justify-end px-4 lg:py-8 gap-y-3 md:gap-y-6">
-        <h2 className="text-white font-semibold text-xl sm:text-2xl md:text-4xl text-center">
+      <div className="absolute inset-1 flex flex-col items-center justify-center max-lg:justify-end px-4 lg:py-8 max-md:gap-y-1 md:gap-y-6">
+        <h2 className="text-white font-semibold text-sm sm:text-2xl md:text-4xl text-center">
           @Blog by Pepe Yz
         </h2>
-        <div className="flex gap-x-4 text-white text-2xl">
-          <IconBrandX />
-          <IconBrandLinkedin />
-          <IconBrand4chan />
-          <IconBrandInstagram />
-          <IconBrandGithub />
+        <div className="flex gap-x-4 text-white ">
+          <IconBrandX className="w-3 h-3" />
+          <IconBrandLinkedin className="w-3 h-3" />
+          <IconBrand4chan className="w-3 h-3" />
+          <IconBrandInstagram className="w-3 h-3" />
+          <IconBrandGithub className="w-3 h-3" />
         </div>
       </div>
     </div>
