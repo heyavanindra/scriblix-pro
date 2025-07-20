@@ -3,6 +3,7 @@ import Footer from "../components/footer";
 import LatestBlogs from "../components/latest-blogs";
 import SubscribeCard from "../components/subscribe-card";
 import { motion } from "motion/react";
+import WavySvg from "../components/wacy-svg";
 
 const Home = () => {
   return (
@@ -25,11 +26,7 @@ const Home = () => {
           </motion.h1>
         </div>
         <div className="absolute top-[30%] max-lg:top-[20%] left-1/2 -translate-x-1/2 -z-0 w-full overflow-hidden">
-          <img
-            src="/arc.svg"
-            alt="Arc Background"
-            className="w-[2000px] mx-auto opacity-80"
-          />
+          <WavySvg />
         </div>
 
         <LatestBlogs></LatestBlogs>
