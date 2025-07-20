@@ -1,4 +1,5 @@
 import Container from "../components/container";
+import Footer from "../components/footer";
 import LatestBlogs from "../components/latest-blogs";
 import SubscribeCard from "../components/subscribe-card";
 
@@ -6,12 +7,12 @@ const Home = () => {
   return (
     <Container className="">
       <div className="relative flex  font-style flex-col items-center   min-h-screen bg-main ">
-        <div className="mt-40 text-center tracking-wider">
-          <h1 className="text-9xl text-primary-text font-bold  font-body mb-4 ">
+        <div className="mt-40 max-lg:mt-30 text-center tracking-wider">
+          <h1 className="text-9xl max-lg:text-5xl max-xl:text-7xl text-primary-text font-bold  font-body mb-4 ">
             Read under 5 minutes.
           </h1>
         </div>
-        <div className="absolute top-[30%] left-1/2 -translate-x-1/2 -z-0 w-full overflow-hidden">
+        <div className="absolute top-[30%] max-lg:top-[20%] left-1/2 -translate-x-1/2 -z-0 w-full overflow-hidden">
           <img
             src="/arc.svg"
             alt="Arc Background"
@@ -21,9 +22,10 @@ const Home = () => {
 
         <LatestBlogs></LatestBlogs>
       </div>
-      <div className="h-200 w-full bg-main flex items-center justify-center">
+      <div className="max-lg:py-30 lg:pb-50 w-full bg-main flex items-center justify-center">
         <SubscribeCard></SubscribeCard>
       </div>
+      <Footer></Footer>
     </Container>
   );
 };

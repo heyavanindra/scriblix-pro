@@ -43,10 +43,10 @@ const LatestBlogs = () => {
   ];
 
   return (
-    <section className="px-4 py-8 lg:mt-50">
-      <div className="grid grid-cols-2 gap-x-8">
+    <section className="px-4 py-8 mt-20 lg:mt-50 ">
+      <div className="grid grid-cols-2 max-md:grid-cols-1 gap-x-8 max-lg:gap-y-10">
         <div>
-          <h2 className="font-semibold font-body text-lg px-4 py-2">Latest</h2>
+          <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">Latest</h2>
           <div className="flex flex-col gap-y-5">
             {blogs.slice(0, 3).map((blog, idx) => (
               <Card key={idx} title={blog.title} src={blog.src}></Card>
@@ -54,7 +54,7 @@ const LatestBlogs = () => {
           </div>
         </div>
         <div>
-          <h2 className="font-semibold font-body text-lg px-4 py-2">top</h2>
+          <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">top</h2>
            <div className="flex flex-col gap-y-5">
             {blogs.slice(0, 3).map((blog, idx) => (
               <Card key={idx} title={blog.title} src={blog.src}></Card>

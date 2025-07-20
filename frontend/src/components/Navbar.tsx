@@ -39,7 +39,7 @@ const Navbar = ({ className }: NavbarProps) => {
 
       {/* Right: Search + Subscribe */}
       <div className="flex gap-x-5 z-50">
-        <button className="bg-accent px-4 font-bold font-body rounded-full text-primary-text">
+        <button className="bg-accent max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text">
           Subscribe
         </button>
         <img src='/search.svg' className="w-6 h-6" alt="" />
