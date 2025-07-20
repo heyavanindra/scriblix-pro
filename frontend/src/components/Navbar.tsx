@@ -47,7 +47,7 @@ const Navbar = ({ className }: NavbarProps) => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-main flex flex-col items-center justify-center gap-6 text-primary-text text-xl z-60 ${
+        className={`fixed inset-0 bg-main flex flex-col h-screen items-center justify-center gap-6 text-primary-text text-xl z-60 ${
           isOpen ? "translate-x-0" : "-translate-x-[100%]"
         } transition-all duration-300 ease-linear`}
       >
