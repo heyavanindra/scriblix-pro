@@ -1,5 +1,4 @@
 import Container from "../components/container";
-import Footer from "../components/footer";
 import LatestBlogs from "../components/latest-blogs";
 import SubscribeCard from "../components/subscribe-card";
 import { motion } from "motion/react";
@@ -31,10 +30,10 @@ const Home = () => {
 
         <LatestBlogs></LatestBlogs>
       </div>
-      <div className="max-lg:py-30 lg:pb-50 w-full bg-main flex items-center justify-center">
+      <div className="max-lg:py-30 lg:pb-20 w-full bg-main flex items-center justify-center">
         <SubscribeCard></SubscribeCard>
       </div>
-      <Footer></Footer>
+      
     </Container>
   );
 };

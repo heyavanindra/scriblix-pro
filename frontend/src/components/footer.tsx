@@ -8,17 +8,17 @@ import {
 
 const Footer = () => {
   return (
-    <div className="relative w-full bg-main overflow-hidden">
+    <footer className="relative w-full bg-main overflow-hidden lg:h-70">
       {/* Background Image */}
       <img
-        src="/arc-footer.svg"
+        src="/footer.svg"
         alt=""
         className="w-full max-w-[1950px] mx-auto"
       />
 
       {/* Centered Content */}
-      <div className="absolute inset-1 flex flex-col items-center justify-center max-lg:justify-end px-4 lg:py-8 max-md:gap-y-1 md:gap-y-6">
-        <h2 className="text-white font-semibold text-sm sm:text-2xl md:text-4xl text-center">
+      <div className="absolute max-lg:top-1/2 lg:top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-y-4">
+        <h2 className="text-white font-semibold text-lg sm:text-2xl md:text-4xl text-center">
           @Blog by Pepe Yz
         </h2>
         <div className="flex gap-x-4 text-white ">
@@ -29,7 +29,7 @@ const Footer = () => {
           <IconBrandGithub className="w-3 h-3" />
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

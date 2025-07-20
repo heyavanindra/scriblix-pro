@@ -25,7 +25,7 @@ const Navbar = ({ className }: NavbarProps) => {
       {/* Left: Hamburger */}
       <div className="z-50">
         <img src="/hamburger.svg" 
-          className="cursor-pointer text-black w-6 h-6"
+          className="cursor-pointer text-black w-10 h-10"
           onClick={() => setIsOpen(!isOpen)}
         />
       </div>
@@ -42,7 +42,7 @@ const Navbar = ({ className }: NavbarProps) => {
         <button className="bg-accent max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text">
           Subscribe
         </button>
-        <img src='/search.svg' className="w-6 h-6" alt="" />
+        <img src='/search.svg' className="w-10 h-10" alt="" />
       </div>
 
       {/* Mobile Menu Overlay */}
