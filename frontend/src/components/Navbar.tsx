@@ -1,6 +1,8 @@
 import { useState } from "react";
 import cn from "../utils/cn";
 import {   IconX } from "@tabler/icons-react";
+import { Link } from "react-router-dom";
+
 
 type NavbarProps = {
   className?: string;
@@ -39,9 +41,9 @@ const Navbar = ({ className }: NavbarProps) => {
 
       {/* Right: Search + Subscribe */}
       <div className="flex gap-x-5 z-50">
-        <button className="bg-accent max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text">
-          Subscribe
-        </button>
+        <Link to={'/login'} className="bg-accent my-auto cursor-pointer max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text">
+          Login
+        </Link>
         <img src='/search.svg' className="w-10 h-10" alt="" />
       </div>
 

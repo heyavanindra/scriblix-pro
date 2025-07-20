@@ -24,12 +24,10 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
     });
 
     if (existingUser) {
-      return res
-        .json({
-          message: "User already Exist",
-          success: false,
-        })
-        .status(403);
+      return res.status(403).json({
+        message: "User already Exist",
+        success: false,
+      });
     }
     const { username, email, password } = parseData.data;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -118,28 +116,27 @@ authRoute.post("/login", async (req: Request, res: Response) => {
 
 export default authRoute;
 
+authRoute.get("/me", authMiddleware, async (req: Request, res: Response) => {
+  const userId = req.userId;
 
-authRoute.get("/me",authMiddleware,async (req:Request,res:Response) => {
-    const userId = req.userId
-
-    try {
-        const user = await UserModel.findById(userId).select("-password");
-        if (!user) {
-            return res.status(404).json({
-                message: "User not found",
-                success: false,
-            });
-        }
-        return res.status(200).json({
-            message: "User fetched successfully",
-            success: true,
-            user: user,
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            message: "Error fetching user",
-            success: false,
-        });
+  try {
+    const user = await UserModel.findById(userId).select("-password");
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
     }
-})
+    return res.status(200).json({
+      message: "User fetched successfully",
+      success: true,
+      user: user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Error fetching user",
+      success: false,
+    });
+  }
+});

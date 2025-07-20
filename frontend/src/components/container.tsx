@@ -6,11 +6,11 @@ type ContainerProps = { className?: string; children: React.ReactNode };
 
 const Container = ({ className, children }: ContainerProps) => {
   return (
-    <div className={cn("", className)}>
+    <section className={cn("", className)}>
       <Navbar></Navbar>
       {children}
       <Footer></Footer>
-    </div>
+    </section>
   );
 };
 
