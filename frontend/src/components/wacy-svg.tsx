@@ -15,7 +15,7 @@ const WavySvg = () => {
           <motion.rect
             initial={{ width: 0 }}
             animate={{ width: 1920 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
             height="100%"
             x="0"
             y="0"

@@ -17,7 +17,7 @@ const Home = () => {
               y: 0,
             }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5,
+            transition={{ duration: 1.5,
               ease: "easeInOut"
              }}
           >
