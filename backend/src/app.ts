@@ -5,6 +5,7 @@ import authRoute from "./routes/auth.route";
 import blogRoute from "./routes/blog.route";
 import imageUploadRoute from "./routes/imageupload.route";
 import cors from "cors";
+import articleRoute from "./routes/artical.route";
 const app = express();
 
 dotenv.config();
@@ -24,6 +25,7 @@ connectDb()
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/blog", blogRoute);
 app.use("/api/v1/image", imageUploadRoute);
+app.use("api/v1/article",articleRoute)
 app.get("/", async (req: Request, res: Response) => {
   res.json({
     message: "hello world",

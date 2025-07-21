@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import DashBoard from "./pages/DashBoard";
 import Authentication from "./components/Authentication";
+import Editor from "./pages/Editor";
 const App = () => {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ const App = () => {
             </Authentication>
           }
         ></Route>
+        <Route path="/editor" element={<Editor></Editor>}></Route>
       </Routes>
     </BrowserRouter>
   );

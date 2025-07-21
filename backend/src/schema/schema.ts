@@ -18,3 +18,4 @@ export const createPostSchema = z.object({
   tags: z.array(z.string()).optional(),
   author: z.string(),
 });
+

@@ -9,3 +9,35 @@
   --color-primary-text: #1A1A1A;
 }
 
+
+
+.tiptap {
+  :first-child {
+    margin-top: 0;
+  }
+
+
+  ul,
+  ol {
+    padding: 0 1rem;
+    margin: 1.25rem 1rem 1.25rem 0.4rem;
+  }
+
+  ul li {
+    list-style-type: disc;
+    margin-bottom: 0.5rem;
+    p {
+     margin-top: 0.25em;
+     margin-bottom: 0.25em;
+   }
+  }
+  ol li {
+    list-style-type: decimal;
+    margin-bottom: 0.5rem;
+    p {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
+  
+}

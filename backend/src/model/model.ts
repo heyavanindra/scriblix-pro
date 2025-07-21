@@ -24,7 +24,7 @@ interface IBlog extends Document {
   updatedAt?: Date;
   likes: number;
   comments?: string[];
-
+  slug:string;
   author: mongoose.Schema.Types.ObjectId;
 }
 
@@ -79,6 +79,10 @@ const blogSchema = new mongoose.Schema<IBlog>({
     type: String,
     default:
       "https://www.gravatar.com/avatar/0000000000000000000000000000000?d=mp&f=y",
+  },
+  slug:{
+    type:String,
+    required:true
   },
   tags: {
     type: [String],
