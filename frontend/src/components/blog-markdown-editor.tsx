@@ -9,11 +9,10 @@ import {
   CreateLink,
   linkPlugin,
   linkDialogPlugin,
-  InsertImage,
-  imagePlugin,
 } from "@mdxeditor/editor";
 const BlogEditor = ({
   markdown,
+  onChange,
 }: {
   markdown: string;
   onChange: (value: string) => void;
@@ -22,18 +21,12 @@ const BlogEditor = ({
     <div>
       <MDXEditor
         markdown={markdown}
+        onChange={(value) => {
+          onChange(value);
+        }}
         plugins={[
           headingsPlugin(),
           linkPlugin(),
-          imagePlugin({
-            imageUploadHandler: () => {
-              return Promise.resolve("https://picsum.photos/200/300");
-            },
-            imageAutocompleteSuggestions: [
-              "https://picsum.photos/200/300",
-              "https://picsum.photos/200",
-            ],
-          }),
           linkDialogPlugin(),
           toolbarPlugin({
             toolbarClassName: "my-classname",
@@ -44,7 +37,6 @@ const BlogEditor = ({
                 <BoldItalicUnderlineToggles />
                 <CodeToggle />
                 <CreateLink></CreateLink>
-                <InsertImage></InsertImage>
               </>
             ),
           }),

@@ -5,8 +5,9 @@ import { motion } from "motion/react";
 import WavySvg from "../components/wacy-svg";
 
 const Home = () => {
+  console.log("inside home page")
   return (
-    <Container className="">
+    <Container key="home" className="">
       <div className="relative flex  font-style flex-col items-center   min-h-screen bg-main ">
         <div className="mt-40 max-lg:mt-30 text-center tracking-wider">
           <motion.h1

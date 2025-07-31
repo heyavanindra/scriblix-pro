@@ -7,7 +7,6 @@ const blogRoute = express.Router();
 
 blogRoute.post(
   "/create",
-  authMiddleware,
   async (req: Request, res: Response) => {
     const { title, content, imageUrl } = req.body;
     const author = req.username;

@@ -1,22 +1,28 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import cn from "../utils/cn";
-import {   IconX } from "@tabler/icons-react";
+import { IconDashboard, IconHome, IconMessage, IconX } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-
-
+import { AuthContext } from "../authContext/context";
+import Cookies from "js-cookie";
 type NavbarProps = {
   className?: string;
 };
 
 const navItems = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "/", icon :<IconHome></IconHome> },
+  { name: "DashBoard", href: "/dashboard",icon:<IconDashboard></IconDashboard> },
+  { name: "Contact", href: "/contact", icon:<IconMessage></IconMessage>},
 ];
 
 const Navbar = ({ className }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { authToken, currentUser ,setAuthToken,setUser } = useContext(AuthContext);
+const handleLogout = () => {
+  Cookies.remove("token")
+  setAuthToken?.(null)
+  setUser?.(null)
+  
+}
   return (
     <nav
       className={cn(
@@ -26,7 +32,8 @@ const Navbar = ({ className }: NavbarProps) => {
     >
       {/* Left: Hamburger */}
       <div className="z-50">
-        <img src="/hamburger.svg" 
+        <img
+          src="/hamburger.svg"
           className="cursor-pointer text-black w-10 h-10"
           onClick={() => setIsOpen(!isOpen)}
         />
@@ -40,11 +47,31 @@ const Navbar = ({ className }: NavbarProps) => {
       </div>
 
       {/* Right: Search + Subscribe */}
-      <div className="flex gap-x-5 z-50">
-        <Link to={'/login'} className="bg-accent my-auto cursor-pointer max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text">
-          Login
-        </Link>
-        <img src='/search.svg' className="w-10 h-10" alt="" />
+      <div className="flex items-center gap-x-5 z-50">
+        <div>
+          {authToken ? (
+            <div className="text-center ">
+              Welcome <strong>{currentUser?.username}</strong>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+        {authToken ? (
+          <button className="bg-accent my-auto cursor-pointer max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text"
+          onClick={handleLogout}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            to={"/login"}
+            className="bg-accent my-auto cursor-pointer max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text"
+          >
+            Login
+          </Link>
+        )}
+        <img src="/search.svg" className="w-10 h-10" alt="" />
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -54,19 +81,16 @@ const Navbar = ({ className }: NavbarProps) => {
         } transition-all duration-300 ease-linear`}
       >
         <div className="fixed top-4 left-4 p-5">
-          <IconX
-            onClick={() => setIsOpen(false)}
-            className="cursor-pointer"
-          />
+          <IconX onClick={() => setIsOpen(false)} className="cursor-pointer" />
         </div>
         {navItems.map((item, idx) => (
           <a
             key={idx}
             href={item.href}
             onClick={() => setIsOpen(false)}
-            className="hover:underline"
+            className="hover:scale-103 transition-all duration-300 flex gap-x-2"
           >
-            {item.name}
+          {item.icon}  {item.name}
           </a>
         ))}
       </div>

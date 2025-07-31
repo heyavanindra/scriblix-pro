@@ -1,8 +1,18 @@
 import express, { Request, Response } from "express";
 import { BlogModel } from "../model/model";
 import { createPostSchema } from "../schema/schema";
+import { authMiddleware } from "../middleware/middleware";
 
 const articleRoute = express.Router();
+
+function generateSlug(title: string) {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
 
 articleRoute.get("/", async (req: Request, res: Response) => {
   try {
@@ -10,14 +20,16 @@ articleRoute.get("/", async (req: Request, res: Response) => {
     if (!article || article.length === 0) {
       return res.status(404).json({ message: "No articles found" });
     }
-    res.status(200).json(article);
+    res.status(200).json({
+      message: article,
+    });
   } catch (error) {
     console.error("Error fetching articles:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-articleRoute.post("/", async (req: Request, res: Response) => {
+articleRoute.post("/",authMiddleware, async (req: Request, res: Response) => {
   const article = req.body;
   const parsedArticle = createPostSchema.safeParse(article);
   if (!parsedArticle.success) {
@@ -27,8 +39,17 @@ articleRoute.post("/", async (req: Request, res: Response) => {
     });
   }
 
+  const slug = generateSlug(parsedArticle.data.title);
+  const { author, content, tags, featuredImage, title } = parsedArticle.data;
   try {
-    const blogCreated = await BlogModel.create(parsedArticle.data);
+    const blogCreated = await BlogModel.create({
+      title: title,
+      content: content,
+      tags: tags,
+      featuredImage: featuredImage,
+      slug: slug,
+      author: req.userId,
+    });
     if (!blogCreated) {
       return res.status(502).json({
         message: "Error white creating the blog",

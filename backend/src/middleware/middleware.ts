@@ -10,19 +10,25 @@ export const authMiddleware = (
   res: Response,
   next: express.NextFunction
 ) => {
+  console.log("auth middleware logs----")
   const token = req.headers.authorization?.split(" ")[1];
+  console.log(token,"Token found")
   if (!token) {
     return res.status(401).json({
       message: "Unauthorized access",
       success: false,
     });
   }
+  
   try {
+    console.log("Try block")
+
    
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET || "your_jwt_secret_key"
     );
+    console.log(decoded)
     if (!decoded || typeof decoded !== "object" || !("username" in decoded)) {
       return res.status(403).json({
         message: "Invalid token",

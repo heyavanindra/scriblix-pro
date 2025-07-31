@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 type User = {
   userId: string;
-  rname: string;
+  username: string;
 };
 
 

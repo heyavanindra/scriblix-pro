@@ -15,7 +15,11 @@ export const signinSchema = z.object({
 export const createPostSchema = z.object({
   title: z.string(),
   content: z.string(),
-  tags: z.array(z.string()).optional(),
+  tags: z.array(z.string()).min(1, "Select at least one tag"),
   author: z.string(),
+  featuredImage: z.url("Invalid image URL"),
 });
+
+
+
 

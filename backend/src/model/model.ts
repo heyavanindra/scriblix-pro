@@ -1,19 +1,5 @@
 import mongoose from "mongoose";
 
-enum BlogRole {
-  EDITOR = "editor",
-  USER = "user",
-}
-
-interface IUser extends Document {
-  email: string;
-  username: string;
-  password: string;
-  bio?: string;
-  role: BlogRole;
-  avatar?: string;
-  blogs: mongoose.Types.ObjectId[];
-}
 
 interface IBlog extends Document {
   title: string;
@@ -24,42 +10,10 @@ interface IBlog extends Document {
   updatedAt?: Date;
   likes: number;
   comments?: string[];
-  slug:string;
+  slug: string;
   author: mongoose.Schema.Types.ObjectId;
 }
 
-const userSchema = new mongoose.Schema<IUser>({
-  email: {
-    required: true,
-    type: String,
-  },
-  username: {
-    required: true,
-    type: String,
-    unique: true,
-  },
-  password: {
-    required: true,
-    type: String,
-  },
-  avatar: {
-    type: String,
-  },
-  bio: {
-    type: String,
-  },
-  role: {
-    type: String,
-    enum: Object.values(BlogRole),
-    default: BlogRole.USER,
-  },
-  blogs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Blog",
-    },
-  ],
-});
 
 const blogSchema = new mongoose.Schema<IBlog>({
   title: {
@@ -80,9 +34,9 @@ const blogSchema = new mongoose.Schema<IBlog>({
     default:
       "https://www.gravatar.com/avatar/0000000000000000000000000000000?d=mp&f=y",
   },
-  slug:{
-    type:String,
-    required:true
+  slug: {
+    type: String,
+    required: true,
   },
   tags: {
     type: [String],
@@ -106,7 +60,6 @@ const blogSchema = new mongoose.Schema<IBlog>({
   },
 });
 
-const UserModel = mongoose.model<IUser>("User", userSchema);
 const BlogModel = mongoose.model("Blog", blogSchema);
 
-export { UserModel, BlogModel };
+export {  BlogModel };

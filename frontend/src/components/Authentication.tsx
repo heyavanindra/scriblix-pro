@@ -1,5 +1,4 @@
 import React, {  useContext } from "react";
-import { Navigate,  } from "react-router-dom";
 import { AuthContext } from "../authContext/context";
 
 const Authentication = ({children}:{
@@ -12,12 +11,8 @@ const Authentication = ({children}:{
   }
   console.log("Current User:", currentUser);
 
-  if (!currentUser) {
-    console.log("under currect user not exist")
-    return <Navigate to="/login" replace />;
-  }
+ 
   console.log("after current user exist")
-
   return children
 };
 
