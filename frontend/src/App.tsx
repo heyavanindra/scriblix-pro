@@ -4,21 +4,14 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import DashBoard from "./pages/DashBoard";
 import Authentication from "./components/Authentication";
-import Editor from "./pages/Editor";
 import NotFound from "./pages/NotFound";
+import Editor from "./pages/editor";
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
-        <Route
-          path="/login"
-          element={
-            <Authentication>
-              <Login></Login>
-            </Authentication>
-          }
-        ></Route>
+        <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<SignUp></SignUp>}></Route>
         <Route
           path="/dashboard"
@@ -28,17 +21,9 @@ const App = () => {
             </Authentication>
           }
         ></Route>
-        <Route
-          path="/editor"
-          element={
-            <Authentication>
-              <Editor></Editor>
-            </Authentication>
-          }
-        ></Route>
+        <Route path="/editor" element={<Editor></Editor>}></Route>
         <Route path="/admin" element={<DashBoard></DashBoard>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
-        
       </Routes>
     </BrowserRouter>
   );

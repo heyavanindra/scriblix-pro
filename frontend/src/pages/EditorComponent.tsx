@@ -10,7 +10,7 @@ import { motion } from "motion/react";
 
 type CreatePostSchema = z.infer<typeof createPostSchema>;
 
-const Editor = () => {
+const EditorComponent = () => {
   const tagOptions = [
     "User",
     "Admin",
@@ -236,4 +236,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default EditorComponent;

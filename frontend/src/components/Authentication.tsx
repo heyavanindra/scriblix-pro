@@ -1,19 +1,13 @@
 import React, {  useContext } from "react";
 import { AuthContext } from "../authContext/context";
+import {  Navigate } from "react-router-dom";
 
 const Authentication = ({children}:{
   children: React.ReactNode;
 }) => {
-  const { currentUser, loading } = useContext(AuthContext);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  console.log("Current User:", currentUser);
-
- 
-  console.log("after current user exist")
-  return children
+  
+  const {authToken } = useContext(AuthContext);
+  return authToken ? children : <Navigate to={'/login'} replace></Navigate>
 };
 
 export default Authentication;
