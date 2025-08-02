@@ -1,46 +1,62 @@
-const LatestBlogs = () => {
-  const blogs = [
-    {
-      title: "Know how to blunder your queen in 2 moves",
-      src: "",
-    },
-    {
-      title: "Why your knight hates you — and how to fix it",
-      src: "",
-    },
-    {
-      title: "10 openings guaranteed to lose in under 5 minutes",
-      src: "",
-    },
-    {
-      title: "I played the Bongcloud for 30 days. Here’s what happened",
-      src: "",
-    },
-    {
-      title: "This one trick made Magnus quit our game (not clickbait)",
-      src: "",
-    },
-    {
-      title: "The psychology behind rage quitting on move 3",
-      src: "",
-    },
-    {
-      title: "ChessGPT told me to sack my queen — so I did",
-      src: "",
-    },
-    {
-      title: "How to beat your little cousin and feel zero guilt",
-      src: "",
-    },
-    {
-      title: "Avoid these 5 endgame mistakes unless you hate winning",
-      src: "",
-    },
-    {
-      title: "I tried playing blindfold chess... and stubbed my toe",
-      src: "",
-    },
-  ];
+
+
+type LatestBlogProps = {
+title:string,
+des:string,
+featuredImage:string
+author:{
+  personal_info:{
+    username:string
+  }
+}
+}[]
+
+const LatestBlogs = ({blogs}:{
+  blogs:LatestBlogProps
+}) => {
+
+  // const blogs = [
+  //   {
+  //     title: "Know how to blunder your queen in 2 moves",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "Why your knight hates you — and how to fix it",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "10 openings guaranteed to lose in under 5 minutes",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "I played the Bongcloud for 30 days. Here’s what happened",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "This one trick made Magnus quit our game (not clickbait)",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "The psychology behind rage quitting on move 3",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "ChessGPT told me to sack my queen — so I did",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "How to beat your little cousin and feel zero guilt",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "Avoid these 5 endgame mistakes unless you hate winning",
+  //     src: "",
+  //   },
+  //   {
+  //     title: "I tried playing blindfold chess... and stubbed my toe",
+  //     src: "",
+  //   },
+  // ];
 
   
 
@@ -50,16 +66,16 @@ const LatestBlogs = () => {
         <div>
           <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">Latest</h2>
           <div className="flex flex-col gap-y-5">
-            {blogs.slice(0, 3).map((blog, idx) => (
-              <Card key={idx} title={blog.title} src={blog.src}></Card>
+            {blogs.slice(0,3).map((blog, idx) => (
+              <Card key={idx} title={blog.title} src={blog.featuredImage}></Card>
             ))}
           </div>
         </div>
         <div>
           <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">top</h2>
-           <div className="flex flex-col gap-y-5">
-            {blogs.slice(0, 3).map((blog, idx) => (
-              <Card key={idx} title={blog.title} src={blog.src}></Card>
+           <div className="flex flex-col gap-y-5 ">
+            {blogs.slice(0,3).map((blog, idx) => (
+              <Card key={idx} title={blog.title} src={blog.featuredImage}></Card>
             ))}
           </div>
         </div>

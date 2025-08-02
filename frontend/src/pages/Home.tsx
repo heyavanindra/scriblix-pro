@@ -7,8 +7,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { IconLoader2 } from "@tabler/icons-react";
 
+type BlogType = {
+title:string,
+des:string,
+featuredImage:string
+author:{
+  personal_info:{
+    username:string
+  }
+}
+}[]
+
 const Home = () => {
-  const [blog, setBlog] = useState(null);
+  const [blog, setBlog] = useState<BlogType| null>(null);
   const fetchLatestBlogData = async () => {
     const response = await axios.get(
       `${import.meta.env.VITE_API_URL}/article/latest`
@@ -38,15 +49,19 @@ const Home = () => {
             Read under 5 minutes.
           </motion.h1>
         </div>
-        <div className="absolute top-[30%] max-lg:top-[20%] left-1/2 -translate-x-1/2 -z-0 w-full overflow-hidden">
+        <div className="absolute top-[30%] max-lg:top-[20%] left-1/2 -translate-x-1/2 -z-0 w-full overflow-hidden pointer-events-none">
           <WavySvg />
         </div>
-
-        {blog === null ? (
+        <div>
+          {blog === null ? (
           <IconLoader2></IconLoader2>
         ) : (
-          <LatestBlogs></LatestBlogs>
+          <LatestBlogs blogs={blog}></LatestBlogs>
         )}
+
+        </div>
+
+        
       </div>
       <div className="max-lg:py-30 lg:pb-20 w-full bg-main flex items-center justify-center">
         <SubscribeCard></SubscribeCard>
