@@ -3,11 +3,11 @@ import Footer from "./footer";
 import Navbar from "./Navbar";
 import AnimationWrapper from "./page-animation";
 
-type ContainerProps = { className?: string; children: React.ReactNode, key:string };
+type ContainerProps = { className?: string; children: React.ReactNode, keyval:string };
 
-const Container = ({ className, children ,key }: ContainerProps) => {
+const Container = ({ className, children ,keyval }: ContainerProps) => {
   return (
-    <AnimationWrapper keyvalue={key}>
+    <AnimationWrapper keyvalue={keyval}>
     <section className={cn("", className)}>
       <Navbar></Navbar>
       {children}

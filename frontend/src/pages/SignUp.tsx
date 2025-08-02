@@ -32,7 +32,7 @@ const SignUp = () => {
   const onSubmit: SubmitHandler<SignUpformValue> = async (data) => {
     console.log("Form submitted with data:", data);
     try {
-      const response = await axios.post(`${API_URL}/api/v1/auth/signup`, data);
+      const response = await axios.post(`${API_URL}/auth/signup`, data);
       console.log(response);
       if (response.status !== 201) {
         console.error("Error during signup:", response.data);
@@ -60,7 +60,7 @@ const SignUp = () => {
 
   return (
    authToken ? <Navigate to={'/'}></Navigate> :  
-      <Container key="signup-page">
+      <Container keyval="signup-page">
         <div className="flex pt-40 items-center justify-center bg-gray-100">
           <form
             onSubmit={handleSubmit(onSubmit)}

@@ -10,6 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.30.8",
+    "@editorjs/embed": "^2.7.6",
+    "@editorjs/header": "^2.8.8",
+    "@editorjs/image": "^2.10.3",
+    "@editorjs/inline-code": "^1.5.2",
+    "@editorjs/link": "^2.6.2",
+    "@editorjs/list": "^2.0.8",
+    "@editorjs/marker": "^1.4.0",
+    "@editorjs/paragraph": "^2.11.7",
+    "@editorjs/quote": "^2.7.6",
     "@hookform/resolvers": "^5.1.1",
     "@mdxeditor/editor": "^3.40.0",
     "@tabler/icons-react": "^3.34.0",
@@ -24,12 +34,14 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",
+    "react-hot-toast": "^2.5.2",
     "react-router-dom": "^7.6.3",
     "react-simplemde-editor": "^5.2.0",
     "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",
-    "zod": "^4.0.5"
+    "zod": "^4.0.5",
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose, { Mongoose, Schema } from "mongoose";
 
 export interface IUser extends Document {
   personal_info: {
@@ -20,6 +20,7 @@ export interface IUser extends Document {
     total_post: number;
     total_reads: number;
   };
+  Blogs:Schema.Types.ObjectId[]
 }
 
 export type IUserType = IUser 
@@ -81,6 +82,11 @@ const userSchema = new mongoose.Schema<IUser>({
       default: 0,
     },
   },
+  Blogs:{
+    type:[Schema.Types.ObjectId],
+    ref:"blogs",
+    default:[]
+  }
 });
 
 export const UserModel = mongoose.model<IUser>("User", userSchema);

@@ -4,7 +4,7 @@ import { loginSchema } from "../schema/schema";
 import * as z from "zod";
 import axios from "axios";
 import Cookie from "js-cookie";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 import { jwtDecode } from "jwt-decode";
@@ -42,7 +42,7 @@ const Login = () => {
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     console.log("Form submitted with data:", data);
     try {
-      const response = await axios.post(`${API_URL}/api/v1/auth/login`, data);
+      const response = await axios.post(`${API_URL}/auth/login`, data);
       Cookie.set("token", response.data.token, {
         expires: 7,
       });
@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   return (
-      <Container key="user">
+      <Container keyval="user">
         <div className="flex flex-col justify-center items-center py-40 bg-main">
           <form
           onSubmit={handleSubmit(onSubmit)}
@@ -117,6 +117,7 @@ const Login = () => {
           >
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
+          <p>Not a Member yet? <Link to={'/register'} >Sign Up</Link></p>
         </form>
         </div>
       </Container>

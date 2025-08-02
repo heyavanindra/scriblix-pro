@@ -27,9 +27,8 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
   }
 
   try {
-    const existingUser = await UserModel.findOne({
+    let existingUser = await UserModel.findOne({
       "personal_info.username": parseData.data.username,
-      "personal_info.email": parseData.data.email,
     });
 
     if (existingUser) {
@@ -38,6 +37,19 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
         success: false,
       });
     }
+
+    existingUser =await UserModel.findOne({
+      "personal_info.email":parseData.data.email
+    })
+
+     if (existingUser) {
+      return res.status(403).json({
+        message: "User already With This UserName Or Email",
+        success: false,
+      });
+    }
+
+
 
     const { username, email, password } = parseData.data;
     const hashedPassword = await bcrypt.hash(password, 10);

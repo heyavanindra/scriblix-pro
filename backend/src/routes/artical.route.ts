@@ -1,7 +1,9 @@
 import express, { Request, Response } from "express";
-import { BlogModel } from "../model/model";
+import { BlogModel } from "../model/blog.model";
 import { createPostSchema } from "../schema/schema";
 import { authMiddleware } from "../middleware/middleware";
+import { UserModel } from "../model/user.model";
+import { Error } from "mongoose";
 
 const articleRoute = express.Router();
 
@@ -29,8 +31,10 @@ articleRoute.get("/", async (req: Request, res: Response) => {
   }
 });
 
-articleRoute.post("/",authMiddleware, async (req: Request, res: Response) => {
+articleRoute.post("/", authMiddleware, async (req: Request, res: Response) => {
+  const userId = req.userId;
   const article = req.body;
+
   const parsedArticle = createPostSchema.safeParse(article);
   if (!parsedArticle.success) {
     return res.status(400).json({
@@ -39,25 +43,47 @@ articleRoute.post("/",authMiddleware, async (req: Request, res: Response) => {
     });
   }
 
+
   const slug = generateSlug(parsedArticle.data.title);
-  const { author, content, tags, featuredImage, title } = parsedArticle.data;
+  const { content, tags, banner, title, des } = parsedArticle.data;
+  if (!content.blocks.length) {
+    return res.status(403).json({
+      message: "There must be some blog content to publish it",
+    });
+  }
+  let newTags = tags.map((tag) => tag.toLowerCase());
   try {
-    const blogCreated = await BlogModel.create({
+    const blogCreated = new BlogModel({
       title: title,
+      des: des,
+      tags: newTags,
       content: content,
-      tags: tags,
-      featuredImage: featuredImage,
+      author: userId,
       slug: slug,
-      author: req.userId,
+      draft: false,
     });
     if (!blogCreated) {
       return res.status(502).json({
         message: "Error white creating the blog",
       });
     }
+    const SavedBlog = await blogCreated.save();
+    let incrementVal = SavedBlog.draft ? 0 : 1;
+
+    await UserModel.findOneAndUpdate(
+      {
+        _id: userId,
+      },
+      {
+        $inc: { "account_info.total_post": incrementVal },
+        $push: {
+          Blogs: SavedBlog._id,
+        },
+      }
+    );
 
     return res.status(201).json({
-      blogCreated,
+      blogId: SavedBlog.slug,
       message: "success",
     });
   } catch (error) {
@@ -90,10 +116,11 @@ articleRoute.patch("/:id", async (req: Request, res: Response) => {
     return res.status(201).json({
       message: "article updated",
     });
-  } catch (error) {
+  } catch (e) {
+    const error = e as Error;
     console.error(error);
     return res.status(503).json({
-      message: "Error White updating article",
+      message: error.message || "Error White updating article",
     });
   }
 });
@@ -120,4 +147,26 @@ articleRoute.delete("/:slug", async (req: Request, res: Response) => {
   }
 });
 
+articleRoute.get("/latest", async (req: Request, res: Response) => {
+  const maxLimit = 5;
+  try {
+    const blogs = await BlogModel.find({ draft: false })
+      .populate("author", "personal_info.avatar personal_info.username -_id")
+      .sort({ publishedAt: -1 })
+      .select("content -_id")
+      .limit(maxLimit);
+      console.log(blogs)
+    
+
+    return res.json({
+      message: "success",
+      blog: blogs,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "server error while getting latest blog",
+    });
+  }
+});
 export default articleRoute;

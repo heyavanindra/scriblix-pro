@@ -1,11 +1,13 @@
-import { useState } from "react";
+import BlogEditor from "../components/blog-markdown-editor";
+import PublishForm from "../components/publishform";
+import { blogStore } from "../state/zustand";
 
 const Editor = () => {
-  const [editorState, setEditorState] = useState("editor");
+  const { editorState } = blogStore();
   return editorState === "editor" ? (
-    <h1>Blog Editor</h1>
+    <BlogEditor></BlogEditor>
   ) : (
-    <h1>Publish form</h1>
+    <PublishForm></PublishForm>
   );
 };
 

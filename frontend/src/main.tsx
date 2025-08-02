@@ -4,9 +4,10 @@ import "./index.css";
 import App from "./App.tsx";
 import AuthProvider from "./authContext/AuthContext.tsx";
 import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  
     <AuthProvider>
       <App />
       <ToastContainer
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
         autoClose={5000}
         hideProgressBar={false}
       ></ToastContainer>
+      <Toaster></Toaster>
     </AuthProvider>
-  </StrictMode>
+  
 );
