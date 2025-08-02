@@ -3,9 +3,25 @@ import LatestBlogs from "../components/latest-blogs";
 import SubscribeCard from "../components/subscribe-card";
 import { motion } from "motion/react";
 import WavySvg from "../components/wacy-svg";
+import axios from "axios";
+import { useEffect } from "react";
 
 const Home = () => {
-  console.log("inside home page")
+
+const fetchLatestBlogData = async () =>{
+ const response = await axios.get(`${import.meta.env.VITE_API_URL}/article/latest`)
+ console.log(response.data.blog)
+}
+
+fetchLatestBlogData()
+
+useEffect(() => {
+  fetchLatestBlogData()
+
+  
+}, [])
+
+
   return (
     <Container keyval="home-container" className="">
       <div className="relative flex  font-style flex-col items-center   min-h-screen bg-main ">
