@@ -4,23 +4,22 @@ import SubscribeCard from "../components/subscribe-card";
 import { motion } from "motion/react";
 import WavySvg from "../components/wacy-svg";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { IconLoader2 } from "@tabler/icons-react";
 
 const Home = () => {
+  const [blog, setBlog] = useState(null);
+  const fetchLatestBlogData = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/article/latest`
+    );
+    console.log(response.data.blog);
+    setBlog(response.data.blog);
+  };
 
-const fetchLatestBlogData = async () =>{
- const response = await axios.get(`${import.meta.env.VITE_API_URL}/article/latest`)
- console.log(response.data.blog)
-}
-
-fetchLatestBlogData()
-
-useEffect(() => {
-  fetchLatestBlogData()
-
-  
-}, [])
-
+  useEffect(() => {
+    fetchLatestBlogData();
+  }, []);
 
   return (
     <Container keyval="home-container" className="">
@@ -34,9 +33,7 @@ useEffect(() => {
               y: 0,
             }}
             viewport={{ once: true }}
-            transition={{ duration: 1.5,
-              ease: "easeInOut"
-             }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
           >
             Read under 5 minutes.
           </motion.h1>
@@ -45,12 +42,15 @@ useEffect(() => {
           <WavySvg />
         </div>
 
-        <LatestBlogs></LatestBlogs>
+        {blog === null ? (
+          <IconLoader2></IconLoader2>
+        ) : (
+          <LatestBlogs></LatestBlogs>
+        )}
       </div>
       <div className="max-lg:py-30 lg:pb-20 w-full bg-main flex items-center justify-center">
         <SubscribeCard></SubscribeCard>
       </div>
-      
     </Container>
   );
 };

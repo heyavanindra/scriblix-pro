@@ -42,6 +42,8 @@ const LatestBlogs = () => {
     },
   ];
 
+  
+
   return (
     <section className="px-4 py-8 mt-20 lg:mt-50 ">
       <div className="grid grid-cols-2 max-md:grid-cols-1 gap-x-8 max-lg:gap-y-10">
