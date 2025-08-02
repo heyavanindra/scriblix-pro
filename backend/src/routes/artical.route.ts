@@ -59,6 +59,7 @@ articleRoute.post("/", authMiddleware, async (req: Request, res: Response) => {
       tags: newTags,
       content: content,
       author: userId,
+      featuredImage:banner,
       slug: slug,
       draft: false,
     });
