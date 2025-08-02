@@ -46,7 +46,6 @@ export const uploadImageByFile = async (e:File) => {
   formData.append("image",e)
   try {
     const response = await axios.post(`${API_URL}/image/upload`,formData)
-    console.log(response.data)
     return {
       success:1,
       file:{

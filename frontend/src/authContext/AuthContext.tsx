@@ -18,7 +18,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setLoading(true);
     const token = Cookies.get("token");
-    console.log("Access token from cookie :",token)
     
     if (token) {
       try {

@@ -1,20 +1,27 @@
+import { LoaderIcon } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
+// article/top
 
-type LatestBlogProps = {
-title:string,
-des:string,
-featuredImage:string
-author:{
-  personal_info:{
-    username:string
-  }
-}
-}[]
+type BlogProps = {
+  title: string;
+  des: string;
+  featuredImage: string;
+  slug: string;
+  author: {
+    personal_info: {
+      username: string;
+    };
+  };
+}[];
 
-const LatestBlogs = ({blogs}:{
-  blogs:LatestBlogProps
+const LatestBlogs = ({
+  blogs,
+  topBlogs,
+}: {
+  blogs: BlogProps | null;
+  topBlogs: BlogProps | null;
 }) => {
-
   // const blogs = [
   //   {
   //     title: "Know how to blunder your queen in 2 moves",
@@ -58,25 +65,49 @@ const LatestBlogs = ({blogs}:{
   //   },
   // ];
 
-  
-
   return (
     <section className="px-4 py-8 mt-20 lg:mt-50 ">
       <div className="grid grid-cols-2 max-md:grid-cols-1 gap-x-8 max-lg:gap-y-10">
         <div>
-          <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">Latest</h2>
+          <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">
+            Latest
+          </h2>
           <div className="flex flex-col gap-y-5">
-            {blogs.slice(0,3).map((blog, idx) => (
-              <Card key={idx} title={blog.title} src={blog.featuredImage}></Card>
-            ))}
+            {blogs === null ? (
+              <LoaderIcon></LoaderIcon>
+            ) : (
+              blogs
+                .slice(0, 3)
+                .map((blog, idx) => (
+                  <Card
+                    key={idx}
+                    title={blog.title}
+                    src={blog.featuredImage}
+                    slug={blog.slug}
+                  ></Card>
+                ))
+            )}
           </div>
         </div>
         <div>
-          <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">top</h2>
-           <div className="flex flex-col gap-y-5 ">
-            {blogs.slice(0,3).map((blog, idx) => (
-              <Card key={idx} title={blog.title} src={blog.featuredImage}></Card>
-            ))}
+          <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">
+            top
+          </h2>
+          <div className="flex flex-col gap-y-5 ">
+            {topBlogs === null ? (
+              <LoaderIcon></LoaderIcon>
+            ) : (
+              topBlogs
+                .slice(0, 3)
+                .map((blog, idx) => (
+                  <Card
+                    key={idx}
+                    title={blog.title}
+                    src={blog.featuredImage}
+                    slug={blog.slug}
+                  ></Card>
+                ))
+            )}
           </div>
         </div>
       </div>
@@ -84,9 +115,20 @@ const LatestBlogs = ({blogs}:{
   );
 };
 
-const Card = ({ title, src }: { title: string; src: string }) => {
+const Card = ({
+  title,
+  src,
+  slug,
+}: {
+  title: string;
+  src: string;
+  slug: string;
+}) => {
   return (
-    <div className="bg-bg-card hover:border-accent hover:border cursor-pointer rounded-xl  p-4 flex gap-4 items-center hover:shadow-lg transition-shadow duration-300">
+    <Link
+      to={`/${slug}`}
+      className="bg-bg-card hover:border-accent hover:border cursor-pointer rounded-xl  p-4 flex gap-4 items-center hover:shadow-lg transition-shadow duration-300"
+    >
       <div className="w-16 h-16  rounded-lg overflow-hidden flex-shrink-0">
         {src ? (
           <img src={src} alt={title} className="w-full h-full object-cover" />
@@ -97,7 +139,7 @@ const Card = ({ title, src }: { title: string; src: string }) => {
         )}
       </div>
       <p className="text-primary-text font-body">{title}</p>
-    </div>
+    </Link>
   );
 };
 

@@ -32,5 +32,5 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, async () => {
-  console.log(`Server is listening on PORT http://localhost:${PORT}`);
+  console.log(`Server is listening`);
 });

@@ -96,7 +96,6 @@ const BlogEditor = () => {
 
     try {
       const data: OutputData = await textEditor.save();
-      console.log(data);
       if (data.blocks.length) {
         setBlog({
           ...blog,

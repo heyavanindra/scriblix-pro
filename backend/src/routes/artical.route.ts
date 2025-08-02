@@ -4,6 +4,7 @@ import { createPostSchema } from "../schema/schema";
 import { authMiddleware } from "../middleware/middleware";
 import { UserModel } from "../model/user.model";
 import { Error } from "mongoose";
+import { success } from "zod";
 
 const articleRoute = express.Router();
 
@@ -42,7 +43,6 @@ articleRoute.post("/", authMiddleware, async (req: Request, res: Response) => {
       errors: parsedArticle.error.message,
     });
   }
-
 
   const slug = generateSlug(parsedArticle.data.title);
   const { content, tags, banner, title, des } = parsedArticle.data;
@@ -153,10 +153,8 @@ articleRoute.get("/latest", async (req: Request, res: Response) => {
     const blogs = await BlogModel.find({ draft: false })
       .populate("author", "personal_info.avatar personal_info.username -_id")
       .sort({ publishedAt: -1 })
-      .select("content -_id")
+      .select("title des slug featuredImage -_id")
       .limit(maxLimit);
-      console.log(blogs)
-    
 
     return res.json({
       message: "success",
@@ -168,5 +166,21 @@ articleRoute.get("/latest", async (req: Request, res: Response) => {
       message: "server error while getting latest blog",
     });
   }
+});
+
+articleRoute.get("/top", async (req: Request, res: Response) => {
+  const blogs = await BlogModel.find({ draft: false })
+    .populate("author", "personal_info.avatar personal_info.username -_id")
+    .sort({
+      "activity.total_reads": -1,
+      "activity.total_likes": -1,
+      publishedAt: -1,
+    })
+    .select("slug title des featuredImage  publishedAt -_id")
+    .limit(5);
+  res.status(200).json({
+    message: success,
+    blogs: blogs,
+  });
 });
 export default articleRoute;

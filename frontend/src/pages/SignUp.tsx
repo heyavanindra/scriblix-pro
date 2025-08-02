@@ -30,10 +30,8 @@ const SignUp = () => {
   });
 
   const onSubmit: SubmitHandler<SignUpformValue> = async (data) => {
-    console.log("Form submitted with data:", data);
     try {
       const response = await axios.post(`${API_URL}/auth/signup`, data);
-      console.log(response);
       if (response.status !== 201) {
         console.error("Error during signup:", response.data);
         return;
@@ -41,12 +39,9 @@ const SignUp = () => {
 
       toast.success("User Created");
       redirect("/login");
-      console.log(
-        "signup successful, token set in cookies:",
-        response.data.token
-      );
+     
     } catch (error) {
-      console.log("error");
+      console.error("error");
       const axiosError = error as AxiosError<{ message: string }>;
 
       const errorMessage =

@@ -35,12 +35,10 @@ const Login = () => {
   });
 
   if (currentUser) {
-    console.log("User already logged in, redirecting to dashboard...");
     return <Navigate to="/dashboard" replace />;
   }
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
-    console.log("Form submitted with data:", data);
     try {
       const response = await axios.post(`${API_URL}/auth/login`, data);
       Cookie.set("token", response.data.token, {
@@ -51,10 +49,7 @@ const Login = () => {
       setAuthToken?.(response.data.token);
       toast.success("Login successful!");
       redirect("/dashboard");
-      console.log(
-        "Login successful, token set in cookies:",
-        response.data.token
-      );
+ 
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
       console.error(error);
