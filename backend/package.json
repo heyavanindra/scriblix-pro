@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm build && pnpm start",
-    "build": "tsc -b",
+    "build": "pnpm install && tsc -b",
     "start": "node dist/app.js"
   },
   "keywords": [],
