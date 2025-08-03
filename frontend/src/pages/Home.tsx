@@ -28,17 +28,6 @@ const Home = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${window.location.origin}`} />
         <meta property="og:site_name" content="Blog" />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Blog — Read Under 5 Minutes" />
-        <meta
-          name="twitter:description"
-          content="Bite-sized blogs for the curious mind. Stay updated with the latest stories, dev insights, and ideas — all under 5 minutes."
-        />
-        <meta
-          name="twitter:image"
-          content={`${window.location.origin}/banner.png`}
-        />
         <link rel="canonical" href={`${window.location.origin}`} />
       </Helmet>
       <div className="relative flex  font-style flex-col items-center   min-h-screen bg-main ">
