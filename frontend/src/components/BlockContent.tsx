@@ -21,7 +21,7 @@ const BlockContent = ({ block }: BlockType) => {
   if (type === "paragraph") {
     return (
       <p
-        className="mb-4 leading-relaxed"
+        className="mb-4 leading-relaxed font-body"
         dangerouslySetInnerHTML={{ __html: data.text }}
       ></p>
     );
@@ -31,14 +31,14 @@ const BlockContent = ({ block }: BlockType) => {
     if (data.level === 3) {
       return (
         <h3
-          className="text-2xl font-semibold mt-6 mb-2"
+          className="text-2xl font-semibold mt-6 mb-2 font-body"
           dangerouslySetInnerHTML={{ __html: data.text }}
         ></h3>
       );
     }
     return (
       <h2
-        className="text-3xl font-bold mt-8 mb-4"
+        className="text-3xl font-bold mt-8 mb-4 font-body"
         dangerouslySetInnerHTML={{ __html: data.text }}
       ></h2>
     );
@@ -52,7 +52,7 @@ const BlockContent = ({ block }: BlockType) => {
     return <Quote qoute={data.text} caption={data.caption} />;
   }
 
-  return <div className="text-gray-700">{data.text}</div>;
+  return <div className="text-gray-700 font-body">{data.text}</div>;
 };
 
 export default BlockContent;
