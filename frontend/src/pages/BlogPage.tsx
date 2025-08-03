@@ -69,6 +69,9 @@ const BlogPage = () => {
 
   useEffect(() => {
     fetchBlog();
+    if (error) {
+      toast.error("Error occured while fetching the blog")
+    }
   }, []);
 
   return (
