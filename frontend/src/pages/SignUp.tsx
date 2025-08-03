@@ -2,13 +2,14 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema } from "../schema/schema";
 import * as z from "zod";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Container from "../components/container";
 import { useContext } from "react";
 import { AuthContext } from "../authContext/context";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+import api from "../libs/api";
+
 
 type SignUpformValue = z.infer<typeof signupSchema>;
 const SignUp = () => {
@@ -31,7 +32,7 @@ const SignUp = () => {
 
   const onSubmit: SubmitHandler<SignUpformValue> = async (data) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/signup`, data);
+      const response = await api.post(`/auth/signup`, data);
       if (response.status !== 201) {
         console.error("Error during signup:", response.data);
         return;

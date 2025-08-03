@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm build && pnpm start",
+    "dev": "tsc -b && node dist/app.js",
     "build": "pnpm install && tsc -b",
     "start": "node dist/app.js"
   },

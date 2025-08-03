@@ -6,6 +6,7 @@ import DashBoard from "./pages/DashBoard";
 import Authentication from "./components/Authentication";
 import NotFound from "./pages/NotFound";
 import Editor from "./pages/editor";
+import BlogPage from "./pages/BlogPage";
 const App = () => {
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/editor" element={<Editor></Editor>}></Route>
         <Route path="/admin" element={<DashBoard></DashBoard>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
+        <Route path="/blog/:slug" element={<BlogPage></BlogPage>}></Route>
       </Routes>
     </BrowserRouter>
   );

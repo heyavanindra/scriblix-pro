@@ -48,6 +48,7 @@ const blogSchema = new mongoose.Schema<IBlog>({
   slug: {
     type: String,
     required: true,
+    unique:true
   },
   tags: {
     type: [String],

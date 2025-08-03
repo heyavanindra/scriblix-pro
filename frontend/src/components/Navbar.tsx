@@ -1,9 +1,7 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import cn from "../utils/cn";
 import { IconDashboard, IconHome, IconMessage, IconX } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../authContext/context";
-import Cookies from "js-cookie";
+
 type NavbarProps = {
   className?: string;
 };
@@ -16,13 +14,7 @@ const navItems = [
 
 const Navbar = ({ className }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { authToken, currentUser ,setAuthToken,setUser } = useContext(AuthContext);
-const handleLogout = () => {
-  Cookies.remove("token")
-  setAuthToken?.(null)
-  setUser?.(null)
-  
-}
+
   return (
     <nav
       className={cn(
@@ -48,35 +40,12 @@ const handleLogout = () => {
 
       {/* Right: Search + Subscribe */}
       <div className="flex items-center gap-x-5 z-50">
-        <div>
-          {authToken ? (
-            <div className="text-center ">
-              Welcome <strong>{currentUser?.username}</strong>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-        {authToken ? (
-          <button className="bg-accent my-auto cursor-pointer max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text"
-          onClick={handleLogout}
-          >
-            Logout
-          </button>
-        ) : (
-          <Link
-            to={"/login"}
-            className="bg-accent my-auto cursor-pointer max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text"
-          >
-            Login
-          </Link>
-        )}
         <img src="/search.svg" className="w-10 h-10" alt="" />
       </div>
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-main flex flex-col h-screen items-center justify-center gap-6 text-primary-text text-xl z-60 ${
+        className={`fixed inset-0 bg-main flex flex-col h-screen xl:w-[400px] items-center justify-center gap-6 text-primary-text text-xl z-60 ${
           isOpen ? "translate-x-0" : "-translate-x-[100%]"
         } transition-all duration-300 ease-linear`}
       >

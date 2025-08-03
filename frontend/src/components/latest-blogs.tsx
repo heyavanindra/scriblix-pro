@@ -1,13 +1,17 @@
-import { LoaderIcon } from "react-hot-toast";
+import { Suspense, useEffect, useState } from "react";
+import toast, { LoaderIcon } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import api from "../libs/api";
 
 // article/top
 
-type BlogProps = {
+
+
+type BlogType = {
   title: string;
   des: string;
-  featuredImage: string;
   slug: string;
+  featuredImage: string;
   author: {
     personal_info: {
       username: string;
@@ -15,13 +19,8 @@ type BlogProps = {
   };
 }[];
 
-const LatestBlogs = ({
-  blogs,
-  topBlogs,
-}: {
-  blogs: BlogProps | null;
-  topBlogs: BlogProps | null;
-}) => {
+
+const LatestBlogs = () => {
   // const blogs = [
   //   {
   //     title: "Know how to blunder your queen in 2 moves",
@@ -65,14 +64,46 @@ const LatestBlogs = ({
   //   },
   // ];
 
+  const [blogs, setBlogs] = useState<BlogType | null>(null);
+  const [topBlogs, setTopBlogs] = useState<BlogType | null>(null);
+  const fetchLatestBlogData = async () => {
+    try {
+      const response = await api.get(`/article/latest`);
+      console.log(response.data.blog)
+
+      setBlogs(response.data.blog);
+    } catch (error) {
+      console.error(error);
+      toast.error("Error while Fetching the latest blogs");
+    }
+  };
+
+  const fetchTopBlogData = async () => {
+    try {
+      
+      const response = await api.get(`/article/top`);
+      console.log("Top",response.data)
+      setTopBlogs(response.data.blog);
+    } catch (error) {
+      console.error(error);
+      toast.error("Error while Fetching the top blogs");
+    }
+  };
+
+  useEffect(() => {
+    fetchLatestBlogData();
+    fetchTopBlogData();
+  }, []);
+
   return (
-    <section className="px-4 py-8 mt-20 lg:mt-50 ">
+    <section className="px-4 py-8 mt-20 lg:mt-30 ">
       <div className="grid grid-cols-2 max-md:grid-cols-1 gap-x-8 max-lg:gap-y-10">
         <div>
-          <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">
+          <h2 className="font-semibold text-primary-text font-body text-lg px-4 py-2 max-lg:text-4xl">
             Latest
           </h2>
-          <div className="flex flex-col gap-y-5">
+          <Suspense fallback={<div>Loading</div>}>
+          <div className="flex flex-col gap-y-5" >
             {blogs === null ? (
               <LoaderIcon></LoaderIcon>
             ) : (
@@ -88,10 +119,11 @@ const LatestBlogs = ({
                 ))
             )}
           </div>
+          </Suspense>
         </div>
         <div>
-          <h2 className="font-semibold font-body text-lg px-4 py-2 max-lg:text-4xl">
-            top
+          <h2 className="font-semibold font-body text-primary-text text-lg px-4 py-2 max-lg:text-4xl">
+            Top
           </h2>
           <div className="flex flex-col gap-y-5 ">
             {topBlogs === null ? (
@@ -126,7 +158,7 @@ const Card = ({
 }) => {
   return (
     <Link
-      to={`/${slug}`}
+      to={`/blog/${slug}`}
       className="bg-bg-card hover:border-accent hover:border cursor-pointer rounded-xl  p-4 flex gap-4 items-center hover:shadow-lg transition-shadow duration-300"
     >
       <div className="w-16 h-16  rounded-lg overflow-hidden flex-shrink-0">

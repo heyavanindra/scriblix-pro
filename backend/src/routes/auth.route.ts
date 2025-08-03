@@ -38,18 +38,16 @@ authRoute.post("/signup", async (req: Request, res: Response) => {
       });
     }
 
-    existingUser =await UserModel.findOne({
-      "personal_info.email":parseData.data.email
-    })
+    existingUser = await UserModel.findOne({
+      "personal_info.email": parseData.data.email,
+    });
 
-     if (existingUser) {
+    if (existingUser) {
       return res.status(403).json({
         message: "User already With This UserName Or Email",
         success: false,
       });
     }
-
-
 
     const { username, email, password } = parseData.data;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -129,8 +127,6 @@ authRoute.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-export default authRoute;
-
 authRoute.get("/me", authMiddleware, async (req: Request, res: Response) => {
   const userId = req.userId;
 
@@ -155,3 +151,29 @@ authRoute.get("/me", authMiddleware, async (req: Request, res: Response) => {
     });
   }
 });
+
+authRoute.get("/personal-info", async (req: Request, res: Response) => {
+  const { username } = req.body;
+
+  if (!username) {
+    return res.status(400).json({
+      message: "No username provided",
+    });
+  }
+  try {
+    const userFound = await UserModel.findOne({
+      "personal_info.username": username,
+    }).select("-_id -password");
+    return res.status(200).json({
+      message: "User found",
+      user: userFound,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Error while finding User",
+    });
+  }
+});
+
+export default authRoute;

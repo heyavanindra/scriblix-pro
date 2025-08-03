@@ -4,17 +4,15 @@ import { blogStore } from "../state/zustand";
 import type React from "react";
 import Tags from "./tag.component";
 import { toast } from "react-toastify";
-import axios, { AxiosError } from "axios";
-import { AuthContext } from "../authContext/context";
-import { useContext, useState } from "react";
+import  { AxiosError } from "axios";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../libs/api";
 
-const API = import.meta.env.VITE_API_URL;
 
 const PublishForm = () => {
   const { setEditorState, blog, setBlog } = blogStore();
   const [submitting, setSubmitting] = useState(false)
-  const { authToken } = useContext(AuthContext);
   const redirect = useNavigate();
 
   const characterLimit = 200;
@@ -95,11 +93,7 @@ const PublishForm = () => {
     setSubmitting(true)
 
     try {
-      await axios.post(`${API}/article`, blogObj, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
+      await api.post(`/article`, blogObj);
       setSubmitting(false)
       toast.dismiss(loadingToast);
       toast.success("Published");

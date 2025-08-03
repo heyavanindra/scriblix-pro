@@ -32,6 +32,8 @@ articleRoute.get("/", async (req: Request, res: Response) => {
   }
 });
 
+// get blog by slug
+
 articleRoute.post("/", authMiddleware, async (req: Request, res: Response) => {
   const userId = req.userId;
   const article = req.body;
@@ -59,7 +61,7 @@ articleRoute.post("/", authMiddleware, async (req: Request, res: Response) => {
       tags: newTags,
       content: content,
       author: userId,
-      featuredImage:banner,
+      featuredImage: banner,
       slug: slug,
       draft: false,
     });
@@ -149,6 +151,7 @@ articleRoute.delete("/:slug", async (req: Request, res: Response) => {
 });
 
 articleRoute.get("/latest", async (req: Request, res: Response) => {
+  console.log("request recieved");
   const maxLimit = 5;
   try {
     const blogs = await BlogModel.find({ draft: false })
@@ -156,6 +159,7 @@ articleRoute.get("/latest", async (req: Request, res: Response) => {
       .sort({ publishedAt: -1 })
       .select("title des slug featuredImage -_id")
       .limit(maxLimit);
+    console.log(blogs);
 
     return res.json({
       message: "success",
@@ -181,7 +185,37 @@ articleRoute.get("/top", async (req: Request, res: Response) => {
     .limit(5);
   res.status(200).json({
     message: success,
-    blogs: blogs,
+    blog: blogs,
   });
+});
+
+articleRoute.get("/:slug", async (req: Request, res: Response) => {
+  const { slug } = req.params;
+  try {
+    const blogSaved = (await BlogModel.findOneAndUpdate(
+      { slug },
+      { $inc: { "activity.total_reads": 1 } }
+    )
+      .populate("author", "personal_info.username  -_id")
+      .select(
+        "title des content featuredImage activity publishedAt slug tags -_id"
+      )) as any;
+
+    await UserModel.findOneAndUpdate(
+      {
+        "personal_info.username": blogSaved?.author.personal_info.username,
+      },
+      { $inc: { "account_info.total_reads": 1 } }
+    );
+    return res.status(200).json({
+      message: success,
+      blog: blogSaved,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.json({
+      message: "Error while getting the blog",
+    });
+  }
 });
 export default articleRoute;

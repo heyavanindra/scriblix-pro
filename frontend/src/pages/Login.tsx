@@ -2,15 +2,14 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../schema/schema";
 import * as z from "zod";
-import axios from "axios";
 import Cookie from "js-cookie";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 import { jwtDecode } from "jwt-decode";
 import { useContext } from "react";
 import { AuthContext } from "../authContext/context";
 import Container from "../components/container";
+import api from "../libs/api";
 
 type User = {
   userId: string;
@@ -40,7 +39,7 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, data);
+      const response = await api.post(`/auth/login`, data);
       Cookie.set("token", response.data.token, {
         expires: 7,
       });
