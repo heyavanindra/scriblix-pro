@@ -6,7 +6,7 @@ import { AuthContext } from "./context";
 
 type User = {
   userId: string;
-  rname: string;
+  username: string;
 };
 
 
@@ -18,7 +18,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setLoading(true);
     const token = Cookies.get("token");
-    console.log("Token from cookies:", token);
+    
     if (token) {
       try {
         const decodedUser = jwtDecode<User>(token);

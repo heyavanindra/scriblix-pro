@@ -17,7 +17,9 @@ export const authMiddleware = (
       success: false,
     });
   }
+  
   try {
+
    
     const decoded = jwt.verify(
       token,

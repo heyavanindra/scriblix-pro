@@ -1,17 +1,15 @@
-import { useState } from "react";
+import {  useState } from "react";
 import cn from "../utils/cn";
-import {   IconX } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
-
+import { IconDashboard, IconHome, IconMessage, IconX } from "@tabler/icons-react";
 
 type NavbarProps = {
   className?: string;
 };
 
 const navItems = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "/", icon :<IconHome></IconHome> },
+  { name: "DashBoard", href: "/dashboard",icon:<IconDashboard></IconDashboard> },
+  { name: "Contact", href: "/contact", icon:<IconMessage></IconMessage>},
 ];
 
 const Navbar = ({ className }: NavbarProps) => {
@@ -26,7 +24,8 @@ const Navbar = ({ className }: NavbarProps) => {
     >
       {/* Left: Hamburger */}
       <div className="z-50">
-        <img src="/hamburger.svg" 
+        <img
+          src="/hamburger.svg"
           className="cursor-pointer text-black w-10 h-10"
           onClick={() => setIsOpen(!isOpen)}
         />
@@ -40,33 +39,27 @@ const Navbar = ({ className }: NavbarProps) => {
       </div>
 
       {/* Right: Search + Subscribe */}
-      <div className="flex gap-x-5 z-50">
-        <Link to={'/login'} className="bg-accent my-auto cursor-pointer max-lg:hidden px-4 font-bold font-body rounded-full text-primary-text">
-          Login
-        </Link>
-        <img src='/search.svg' className="w-10 h-10" alt="" />
+      <div className="flex items-center gap-x-5 z-50">
+        <img src="/search.svg" className="w-10 h-10" alt="" />
       </div>
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-main flex flex-col h-screen items-center justify-center gap-6 text-primary-text text-xl z-60 ${
+        className={`fixed inset-0 bg-main flex flex-col h-screen xl:w-[400px] items-center justify-center gap-6 text-primary-text text-xl z-60 ${
           isOpen ? "translate-x-0" : "-translate-x-[100%]"
         } transition-all duration-300 ease-linear`}
       >
         <div className="fixed top-4 left-4 p-5">
-          <IconX
-            onClick={() => setIsOpen(false)}
-            className="cursor-pointer"
-          />
+          <IconX onClick={() => setIsOpen(false)} className="cursor-pointer" />
         </div>
         {navItems.map((item, idx) => (
           <a
             key={idx}
             href={item.href}
             onClick={() => setIsOpen(false)}
-            className="hover:underline"
+            className="hover:scale-103 transition-all duration-300 flex gap-x-2"
           >
-            {item.name}
+          {item.icon}  {item.name}
           </a>
         ))}
       </div>

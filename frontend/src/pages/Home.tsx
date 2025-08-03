@@ -4,9 +4,12 @@ import SubscribeCard from "../components/subscribe-card";
 import { motion } from "motion/react";
 import WavySvg from "../components/wacy-svg";
 
+
 const Home = () => {
+ 
+
   return (
-    <Container className="">
+    <Container keyval="home-container" className="">
       <div className="relative flex  font-style flex-col items-center   min-h-screen bg-main ">
         <div className="mt-40 max-lg:mt-30 text-center tracking-wider">
           <motion.h1
@@ -17,23 +20,21 @@ const Home = () => {
               y: 0,
             }}
             viewport={{ once: true }}
-            transition={{ duration: 1.5,
-              ease: "easeInOut"
-             }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
           >
             Read under 5 minutes.
           </motion.h1>
         </div>
-        <div className="absolute top-[30%] max-lg:top-[20%] left-1/2 -translate-x-1/2 -z-0 w-full overflow-hidden">
+        <div className="absolute top-[30%] max-lg:top-[20%] left-1/2 -translate-x-1/2 -z-0 w-full overflow-hidden pointer-events-none">
           <WavySvg />
         </div>
-
-        <LatestBlogs></LatestBlogs>
+        <div>
+          <LatestBlogs ></LatestBlogs>
+        </div>
       </div>
       <div className="max-lg:py-30 lg:pb-20 w-full bg-main flex items-center justify-center">
         <SubscribeCard></SubscribeCard>
       </div>
-      
     </Container>
   );
 };

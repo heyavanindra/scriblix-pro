@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import connectDb from "./db/connectDb";
 import authRoute from "./routes/auth.route";
-import blogRoute from "./routes/blog.route";
+
 import imageUploadRoute from "./routes/imageupload.route";
 import cors from "cors";
 import articleRoute from "./routes/artical.route";
@@ -23,9 +23,8 @@ connectDb()
   });
 
 app.use("/api/v1/auth", authRoute);
-app.use("/api/v1/blog", blogRoute);
 app.use("/api/v1/image", imageUploadRoute);
-app.use("api/v1/article",articleRoute)
+app.use("/api/v1/article",articleRoute)
 app.get("/", async (req: Request, res: Response) => {
   res.json({
     message: "hello world",
@@ -33,5 +32,5 @@ app.get("/", async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, async () => {
-  console.log(`Server is listening on PORT http://localhost:${PORT}`);
+  console.log(`Server is listening`);
 });
