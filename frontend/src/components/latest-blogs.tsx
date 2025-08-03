@@ -66,7 +66,6 @@ const LatestBlogs = () => {
   const fetchLatestBlogData = async () => {
     try {
       const response = await api.get(`/article/latest`);
-      console.log(response.data.blog);
 
       setBlogs(response.data.blog);
     } catch (error) {
@@ -78,7 +77,6 @@ const LatestBlogs = () => {
   const fetchTopBlogData = async () => {
     try {
       const response = await api.get(`/article/top`);
-      console.log("Top", response.data);
       setTopBlogs(response.data.blog);
     } catch (error) {
       console.error(error);

@@ -6,6 +6,7 @@ import AnimationWrapper from "../components/page-animation";
 import type { AxiosError } from "axios";
 import BlockContent from "../components/BlockContent";
 import Container from "../components/container";
+import { Helmet } from "react-helmet-async";
 
 type BlockType = {
   id: string;
@@ -56,7 +57,6 @@ const BlogPage = () => {
     try {
       setLoading(true);
       const response = await api.get(`/article/${slug}`);
-      console.log(response.data.blog);
       setBlog(response.data.blog);
     } catch (error) {
       console.error(error);
@@ -91,6 +91,28 @@ const BlogPage = () => {
             </div>
           ) : (
             <Container keyval="blog-page" className="bg-main">
+              <Helmet>
+                <title>{blog.title}</title>
+                <meta name="description" content={blog.des} />
+                <meta property="og:title" content={blog.title} />
+                <meta property="og:description" content={blog.des} />
+                <meta property="og:image" content={blog.featuredImage} />
+                <meta property="og:type" content="article" />
+                <meta
+                  property="og:url"
+                  content={`${window.location.origin}/blog/${blog.slug}`}
+                />
+                <meta property="og:site_name" content="blog" />
+
+                <meta
+                  name="author"
+                  content={blog.author.personal_info.username}
+                />
+                <link
+                  rel="canonical"
+                  href={`${window.location.origin}/blog/${blog.slug}`}
+                />
+              </Helmet>
               <div className="max-w-4xl mx-auto pt-20 bg-main px-4 py-10">
                 <div className="flex flex-col items-center gap-4 mb-10">
                   <img

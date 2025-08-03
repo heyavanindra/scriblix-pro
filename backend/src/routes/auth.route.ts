@@ -119,7 +119,7 @@ authRoute.post("/login", async (req: Request, res: Response) => {
       token: token,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(503).json({
       message: "Error in Login route",
       success: false,
@@ -144,7 +144,7 @@ authRoute.get("/me", authMiddleware, async (req: Request, res: Response) => {
       user: user,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return res.status(500).json({
       message: "Error fetching user",
       success: false,

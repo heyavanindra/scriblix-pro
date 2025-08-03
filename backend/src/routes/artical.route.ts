@@ -151,7 +151,6 @@ articleRoute.delete("/:slug", async (req: Request, res: Response) => {
 });
 
 articleRoute.get("/latest", async (req: Request, res: Response) => {
-  console.log("request recieved");
   const maxLimit = 5;
   try {
     const blogs = await BlogModel.find({ draft: false })
@@ -159,7 +158,6 @@ articleRoute.get("/latest", async (req: Request, res: Response) => {
       .sort({ publishedAt: -1 })
       .select("title des slug featuredImage -_id")
       .limit(maxLimit);
-    console.log(blogs);
 
     return res.json({
       message: "success",
