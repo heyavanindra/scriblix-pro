@@ -1,11 +1,9 @@
-import { Suspense, useEffect, useState } from "react";
-import toast, { LoaderIcon } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import api from "../libs/api";
 
 // article/top
-
-
 
 type BlogType = {
   title: string;
@@ -18,7 +16,6 @@ type BlogType = {
     };
   };
 }[];
-
 
 const LatestBlogs = () => {
   // const blogs = [
@@ -69,7 +66,7 @@ const LatestBlogs = () => {
   const fetchLatestBlogData = async () => {
     try {
       const response = await api.get(`/article/latest`);
-      console.log(response.data.blog)
+      console.log(response.data.blog);
 
       setBlogs(response.data.blog);
     } catch (error) {
@@ -80,9 +77,8 @@ const LatestBlogs = () => {
 
   const fetchTopBlogData = async () => {
     try {
-      
       const response = await api.get(`/article/top`);
-      console.log("Top",response.data)
+      console.log("Top", response.data);
       setTopBlogs(response.data.blog);
     } catch (error) {
       console.error(error);
@@ -102,44 +98,61 @@ const LatestBlogs = () => {
           <h2 className="font-semibold text-primary-text font-body text-lg px-4 py-2 max-lg:text-4xl">
             Latest
           </h2>
-          <Suspense fallback={<div>Loading</div>}>
-          <div className="flex flex-col gap-y-5" >
-            {blogs === null ? (
-              <LoaderIcon></LoaderIcon>
-            ) : (
-              blogs
-                .slice(0, 3)
-                .map((blog, idx) => (
-                  <Card
-                    key={idx}
-                    title={blog.title}
-                    src={blog.featuredImage}
-                    slug={blog.slug}
-                  ></Card>
+
+          <div className="flex flex-col gap-y-5">
+            {blogs === null
+              ? [1, 2, 3].map((_, idx) => (
+                  <div
+                    key={`skeleton-${idx}`}
+                    className="bg-bg-card animate-pulse rounded-xl p-4 flex gap-4 items-center"
+                  >
+                    <div className="w-16 h-16 bg-gray-300 rounded-lg" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-gray-300 rounded w-3/4" />
+                      <div className="h-4 bg-gray-300 rounded w-1/2" />
+                    </div>
+                  </div>
                 ))
-            )}
+              : blogs
+                  .slice(0, 3)
+                  .map((blog, idx) => (
+                    <Card
+                      key={blog.title + idx}
+                      title={blog.title}
+                      slug={blog.slug}
+                      src={blog.featuredImage}
+                    />
+                  ))}
           </div>
-          </Suspense>
         </div>
         <div>
           <h2 className="font-semibold font-body text-primary-text text-lg px-4 py-2 max-lg:text-4xl">
             Top
           </h2>
           <div className="flex flex-col gap-y-5 ">
-            {topBlogs === null ? (
-              <LoaderIcon></LoaderIcon>
-            ) : (
-              topBlogs
-                .slice(0, 3)
-                .map((blog, idx) => (
-                  <Card
-                    key={idx}
-                    title={blog.title}
-                    src={blog.featuredImage}
-                    slug={blog.slug}
-                  ></Card>
+            {topBlogs === null
+              ? [1, 2, 3].map((_, idx) => (
+                  <div
+                    key={`skeleton-${idx}`}
+                    className="bg-bg-card animate-pulse rounded-xl p-4 flex gap-4 items-center"
+                  >
+                    <div className="w-16 h-16 bg-gray-300 rounded-lg" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-gray-300 rounded w-3/4" />
+                      <div className="h-4 bg-gray-300 rounded w-1/2" />
+                    </div>
+                  </div>
                 ))
-            )}
+              : topBlogs
+                  .slice(0, 3)
+                  .map((blog, idx) => (
+                    <Card
+                      key={idx}
+                      title={blog.title}
+                      src={blog.featuredImage}
+                      slug={blog.slug}
+                    />
+                  ))}
           </div>
         </div>
       </div>
@@ -162,14 +175,9 @@ const Card = ({
       className="bg-bg-card hover:border-accent hover:border cursor-pointer rounded-xl  p-4 flex gap-4 items-center hover:shadow-lg transition-shadow duration-300"
     >
       <div className="w-16 h-16  rounded-lg overflow-hidden flex-shrink-0">
-        {src ? (
-          <img src={src} alt={title} className="w-full h-full object-cover" />
-        ) : (
-          <div className="flex items-center justify-center w-full h-full text-xs text-gray-600">
-            No image
-          </div>
-        )}
+        <img src={src} alt={title} className="w-full h-full object-cover" />
       </div>
+
       <p className="text-primary-text font-body">{title}</p>
     </Link>
   );
